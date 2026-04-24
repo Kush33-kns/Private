@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Best Friend 💖</title>
+    <title>For My Best Friend ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff75c3;
-            --secondary: #9647ff;
-            --glass: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.25);
+            --secondary: #9442fe;
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
             --text: #ffffff;
         }
 
@@ -22,7 +22,7 @@
         }
 
         body {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background: linear-gradient(135deg, #ff75c3, #ffa647, #9442fe, #7000ff);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: var(--text);
@@ -40,379 +40,470 @@
         #lock-screen {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
             z-index: 9999;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s;
+            justify-content: center;
+            backdrop-filter: blur(15px);
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
 
         .lock-card {
             background: var(--glass);
-            padding: 3rem;
+            padding: 40px;
             border-radius: 24px;
             border: 1px solid var(--glass-border);
             text-align: center;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            width: 90%;
-            max-width: 400px;
+            max-width: 90%;
+            width: 400px;
         }
 
-        .lock-card h2 {
+        h1.lock-title {
             font-family: 'Dancing Script', cursive;
             font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
         }
 
-        #pass-input {
+        input[type="password"] {
             width: 100%;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 12px 20px;
+            border-radius: 30px;
             border: 1px solid var(--glass-border);
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.2);
             color: white;
-            text-align: center;
-            margin-bottom: 1rem;
             outline: none;
-            transition: 0.3s;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
         }
 
-        .btn-unlock {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        .unlock-btn {
+            background: white;
+            color: var(--secondary);
+            padding: 10px 30px;
             border: none;
-            padding: 12px 35px;
-            color: white;
-            border-radius: 25px;
-            cursor: pointer;
+            border-radius: 30px;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(231, 60, 126, 0.4);
+            cursor: pointer;
             transition: 0.3s;
         }
 
-        .btn-unlock:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(231, 60, 126, 0.6); }
+        .unlock-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.4); }
 
-        .shake { animation: shake 0.4s ease-in-out; border-color: #ff4b2b !important; }
+        .shake { animation: shake 0.5s; }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
         }
 
-        /* --- MAIN LAYOUT --- */
-        #main-content { display: none; opacity: 0; transition: 1s ease; }
+        /* --- MAIN CONTENT --- */
+        #main-content { opacity: 0; transition: 1s; display: none; }
 
         .hero {
-            height: 80vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
+            position: relative;
         }
 
-        .hero h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(3rem, 10vw, 6rem);
-            margin-bottom: 10px;
-            animation: floatText 3s ease-in-out infinite;
+        .hero h2 { font-family: 'Dancing Script', cursive; font-size: 4rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        .heart {
+            position: absolute;
+            color: rgba(255,255,255,0.5);
+            animation: float 6s linear infinite;
+            z-index: -1;
         }
 
-        @keyframes floatText {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        /* --- UPLOAD SECTION --- */
-        .upload-section {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .custom-file-upload {
+        .section-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 40px 20px;
             background: var(--glass);
-            border: 2px dashed var(--glass-border);
-            padding: 40px;
-            border-radius: 20px;
-            display: inline-block;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title { text-align: center; margin-bottom: 30px; font-family: 'Dancing Script', cursive; font-size: 2.5rem; }
+
+        /* Upload Section */
+        .upload-area { text-align: center; margin-bottom: 40px; }
+        #file-input { display: none; }
+        .custom-upload {
+            background: white;
+            color: var(--secondary);
+            padding: 15px 40px;
+            border-radius: 50px;
             cursor: pointer;
+            display: inline-block;
+            font-weight: 600;
             transition: 0.3s;
         }
 
-        .custom-file-upload:hover { background: rgba(255,255,255,0.2); }
-
-        #photo-input { display: none; }
-
-        /* --- GALLERY --- */
-        .gallery-container {
-            padding: 50px 10%;
-            column-count: 3;
-            column-gap: 25px;
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
         }
 
-        @media (max-width: 900px) { .gallery-container { column-count: 2; } }
-        @media (max-width: 600px) { .gallery-container { column-count: 1; } }
-
-        .photo-card {
-            break-inside: avoid;
-            margin-bottom: 25px;
-            background: var(--glass);
-            padding: 12px;
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
+        .gallery-item {
             position: relative;
             overflow: hidden;
+            border-radius: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            aspect-ratio: 1;
+            cursor: pointer;
         }
 
-        .photo-card:hover { transform: scale(1.03) translateY(-5px); }
-
-        .photo-card img {
+        .gallery-item img {
             width: 100%;
-            border-radius: 10px;
-            display: block;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
         }
 
-        /* --- MESSAGE CARD --- */
-        .message-section { padding: 80px 10%; text-align: center; }
-        .message-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            padding: 50px;
-            border-radius: 30px;
-            border: 1px solid var(--glass-border);
-            max-width: 800px;
-            margin: 0 auto;
+        .gallery-item:hover img { transform: scale(1.1) rotate(2deg); filter: brightness(1.1); }
+
+        /* Slideshow */
+        .slideshow-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 20px;
+            position: relative;
         }
 
-        /* --- FLOATING PLAYER --- */
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        .active-slide { opacity: 1; }
+
+        /* Typing Text */
+        .typing-container {
+            font-size: 1.5rem;
+            text-align: center;
+            height: 60px;
+            padding: 0 20px;
+        }
+
+        /* Music Player */
         .music-player {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(15px);
+            bottom: 20px;
+            left: 20px;
+            background: var(--glass);
             padding: 15px 25px;
             border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             gap: 15px;
-            border: 1px solid var(--glass-border);
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .player-btn {
-            background: none;
-            border: none;
+        .play-btn { background: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; color: var(--secondary); font-size: 1.2rem; }
+
+        /* Secret Popup */
+        .secret-btn {
+            display: block;
+            margin: 40px auto;
+            background: transparent;
+            border: 1px dashed white;
             color: white;
-            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: 0.2s;
+            opacity: 0.6;
         }
-        .player-btn:hover { color: var(--primary); }
 
-        /* --- LIGHTBOX --- */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .popup-card {
+            background: white;
+            color: #333;
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px; opacity: 0.8; font-size: 0.9rem; }
+
+        /* Lightbox */
         #lightbox {
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.95);
             display: none;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
-            padding: 20px;
+            z-index: 11000;
         }
-        #lightbox img { max-width: 100%; max-height: 100%; border-radius: 10px; }
-
-        /* --- EXTRAS --- */
-        .heart {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            animation: heartFloat 5s linear forwards;
-        }
-
-        @keyframes heartFloat {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            20% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
-
-        [data-reveal] {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: 1s ease;
-        }
-
-        .reveal-active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 2px solid white; }
+        .lb-controls { margin-top: 20px; display: flex; gap: 40px; }
+        .lb-btn { background: white; color: black; padding: 10px 20px; cursor: pointer; border-radius: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div id="lock-screen">
-        <div class="lock-card">
-            <h2>A Special Space For You 💖</h2>
-            <input type="password" id="pass-input" placeholder="Enter Password...">
+        <div class="lock-card" id="lock-card">
+            <h1 class="lock-title">A Special Space For You 💖</h1>
+            <p style="margin-bottom: 15px;">Please enter the secret code</p>
+            <input type="password" id="password-input" placeholder="Type password here...">
             <br>
-            <button class="btn-unlock" onclick="checkUnlock()">Unlock the Magic</button>
-            <p id="err-msg" style="color: #ffb1b1; margin-top: 10px; font-size: 0.8rem; display: none;">Wrong password, try again! ✨</p>
+            <button class="unlock-btn" onclick="checkPassword()">Unlock Memories</button>
+            <p id="error-msg" style="color: #ff4d4d; margin-top: 10px; font-size: 0.8rem; display: none;"></p>
         </div>
     </div>
 
     <div id="main-content">
-        
-        <div id="particles-container"></div>
-
         <section class="hero">
-            <h1 data-reveal>For My Best Friend ✨</h1>
-            <p data-reveal style="opacity: 0.9; font-weight: 300;">Memories made beautiful because of you.</p>
+            <div id="hearts-container"></div>
+            <h2>For My Best Friend ✨</h2>
+            <p>Memories made beautiful because of you</p>
+            <div style="margin-top: 30px; font-size: 2rem;">👇</div>
         </section>
 
-        <section class="upload-section" data-reveal>
-            <label for="photo-input" class="custom-file-upload">
-                <span style="font-size: 2rem;">📸</span><br>
-                <strong>Click to Upload Photos</strong><br>
-                <span style="font-size: 0.8rem; opacity: 0.7;">Select multiple memories from your PC</span>
-            </label>
-            <input type="file" id="photo-input" multiple accept="image/*">
-        </section>
-
-        <div class="gallery-container" id="gallery">
+        <div class="section-container">
+            <h3 class="section-title">Memory Vault</h3>
+            <div class="upload-area">
+                <label for="file-input" class="custom-upload">Add Our Moments 📸</label>
+                <input type="file" id="file-input" multiple accept="image/*">
             </div>
-
-        <section class="message-section">
-            <div class="message-card" data-reveal>
-                <h2 style="font-family: 'Dancing Script'; font-size: 2.5rem; margin-bottom: 15px;">To My Bestie</h2>
-                <p>Thank you for being special in my life 💜. Every moment captured here represents a piece of our story that I'll cherish forever.</p>
-            </div>
-        </section>
-
-        <div class="music-player">
-            <button class="player-btn" id="play-btn" onclick="toggleMusic()">▶</button>
-            <span id="track-name" style="font-size: 0.8rem; font-weight: 600;">Our Special Song 💖</span>
-            <audio id="bg-audio" src="music.mp3" loop></audio>
+            <div class="gallery-grid" id="gallery">
+                </div>
         </div>
 
-        <div id="lightbox" onclick="this.style.display='none'">
-            <img src="" id="lightbox-img">
+        <div class="section-container">
+            <h3 class="section-title">Beautiful Memories</h3>
+            <div class="slideshow-container" id="slideshow">
+                </div>
         </div>
 
+        <div class="section-container">
+            <div class="typing-container" id="typewriter"></div>
+            <button class="secret-btn" onclick="togglePopup(true)">Open Secret Message ✉️</button>
+        </div>
+
+        <footer>
+            Made with Heart 💖
+        </footer>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-player">
+        <button class="play-btn" onclick="toggleMusic()" id="music-btn">▶</button>
+        <div>
+            <div style="font-size: 0.8rem; font-weight: 600;">Our Special Song 💖</div>
+            <div id="music-status" style="font-size: 0.6rem; opacity: 0.7;">Paused</div>
+        </div>
+    </div>
+
+    <div class="overlay" id="popup-overlay" onclick="togglePopup(false)">
+        <div class="popup-card" onclick="event.stopPropagation()">
+            <h2 style="font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--secondary);">To My Bestie,</h2>
+            <p style="margin: 20px 0; line-height: 1.6;">
+                They say that true friendship is a journey without an end. I am so lucky to have you by my side through every high and every low. Thank you for being you. You are precious! 💜
+            </p>
+            <button class="unlock-btn" onclick="togglePopup(false)">Close with Love</button>
+        </div>
+    </div>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lb-img">
+        <div class="lb-controls" onclick="event.stopPropagation()">
+            <div class="lb-btn" onclick="changeImage(-1)">Prev</div>
+            <div class="lb-btn" onclick="changeImage(1)">Next</div>
+        </div>
     </div>
 
     <script>
-        // --- AUTH LOGIC ---
-        function checkUnlock() {
-            const pass = document.getElementById('pass-input').value;
-            const lock = document.getElementById('lock-screen');
-            const main = document.getElementById('main-content');
-            const err = document.getElementById('err-msg');
-            const audio = document.getElementById('bg-audio');
-            const playBtn = document.getElementById('play-btn');
+        const pass = "medamji";
+        let currentImages = [];
+        let lbIndex = 0;
 
-            if(pass === "medamji") {
-                lock.style.opacity = '0';
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            const lockCard = document.getElementById('lock-card');
+            const errorMsg = document.getElementById('error-msg');
+
+            if (input === pass) {
+                document.getElementById('lock-screen').style.transform = "translateY(-100%)";
+                document.getElementById('main-content').style.display = "block";
                 setTimeout(() => {
-                    lock.style.display = 'none';
-                    main.style.display = 'block';
-                    setTimeout(() => { main.style.opacity = '1'; }, 50);
-                    startEffects();
-                    
-                    // Auto-play music upon unlock
-                    audio.play().then(() => {
-                        playBtn.innerText = '⏸';
-                    }).catch(error => {
-                        console.log("Autoplay blocked by browser. User must click Play.");
-                    });
+                    document.getElementById('main-content').style.opacity = "1";
+                    startTypewriter();
+                    tryPlayMusic();
                 }, 800);
             } else {
-                document.getElementById('pass-input').classList.add('shake');
-                err.style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('pass-input').classList.remove('shake');
-                }, 400);
+                lockCard.classList.add('shake');
+                errorMsg.innerText = "Oops! Wrong code, cutie. Try again! 🌸";
+                errorMsg.style.display = "block";
+                setTimeout(() => lockCard.classList.remove('shake'), 500);
             }
         }
 
-        // --- PHOTO UPLOAD LOGIC ---
-        const photoInput = document.getElementById('photo-input');
-        const gallery = document.getElementById('gallery');
+        const music = document.getElementById('bg-music');
+        const mBtn = document.getElementById('music-btn');
+        const mStatus = document.getElementById('music-status');
 
-        photoInput.addEventListener('change', function() {
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                mBtn.innerText = "⏸";
+                mStatus.innerText = "Playing Now...";
+            } else {
+                music.pause();
+                mBtn.innerText = "▶";
+                mStatus.innerText = "Paused";
+            }
+        }
+
+        function tryPlayMusic() {
+            music.play().then(() => {
+                mBtn.innerText = "⏸";
+                mStatus.innerText = "Playing Now...";
+            }).catch(() => {
+                mStatus.innerText = "Click play to start music";
+            });
+        }
+
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const icons = ['💖', '✨', '🌸', '💜', '🎈'];
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        const fileInput = document.getElementById('file-input');
+        const gallery = document.getElementById('gallery');
+        const slideshow = document.getElementById('slideshow');
+
+        fileInput.addEventListener('change', function() {
             const files = Array.from(this.files);
-            
             files.forEach(file => {
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const div = document.createElement('div');
-                        div.className = 'photo-card';
-                        div.innerHTML = `<img src="${e.target.result}" loading="lazy">`;
-                        div.onclick = () => openLightbox(e.target.result);
-                        gallery.appendChild(div);
-                    }
-                    reader.readAsDataURL(file);
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const url = e.target.result;
+                    currentImages.push(url);
+                    
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    div.innerHTML = `<img src="${url}">`;
+                    div.onclick = () => openLightbox(currentImages.indexOf(url));
+                    gallery.prepend(div);
+
+                    const slide = document.createElement('div');
+                    slide.className = 'slide';
+                    // If first slide uploaded, make it active
+                    if(currentImages.length === 1) slide.classList.add('active-slide');
+                    slide.innerHTML = `<img src="${url}">`;
+                    slideshow.appendChild(slide);
                 }
+                reader.readAsDataURL(file);
             });
         });
 
-        function openLightbox(src) {
+        let slideIndex = 0;
+        function runSlideshow() {
+            const slides = document.querySelectorAll('.slide');
+            if (slides.length <= 1) return;
+            slides.forEach(s => s.classList.remove('active-slide'));
+            slideIndex++;
+            if (slideIndex >= slides.length) slideIndex = 0;
+            slides[slideIndex].classList.add('active-slide');
+        }
+        setInterval(runSlideshow, 3000);
+
+        function openLightbox(index) {
+            lbIndex = index;
             const lb = document.getElementById('lightbox');
-            document.getElementById('lightbox-img').src = src;
+            const img = document.getElementById('lb-img');
+            img.src = currentImages[lbIndex];
             lb.style.display = 'flex';
         }
 
-        // --- EFFECTS (HEARTS & REVEAL) ---
-        function startEffects() {
-            // Heart creation
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.innerHTML = ['💖', '✨', '💜', '🌸'][Math.floor(Math.random() * 4)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 5000);
-            }, 600);
-
-            // Scroll reveal
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if(entry.isIntersecting) entry.target.classList.add('reveal-active');
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
         }
 
-        // --- UPDATED MUSIC LOGIC ---
-        const audio = document.getElementById('bg-audio');
-        const playBtn = document.getElementById('play-btn');
+        function changeImage(step) {
+            lbIndex += step;
+            if (lbIndex >= currentImages.length) lbIndex = 0;
+            if (lbIndex < 0) lbIndex = currentImages.length - 1;
+            document.getElementById('lb-img').src = currentImages[lbIndex];
+        }
 
-        function toggleMusic() {
-            if (audio.paused) {
-                audio.play();
-                playBtn.innerText = '⏸';
-            } else {
-                audio.pause();
-                playBtn.innerText = '▶';
+        function startTypewriter() {
+            const text = "Thank you for being the most precious part of my life 💜";
+            let i = 0;
+            const target = document.getElementById('typewriter');
+            function type() {
+                if (i < text.length) {
+                    target.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, 100);
+                }
             }
+            type();
         }
 
-        // Allow Enter key for password
-        document.getElementById('pass-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkUnlock();
-        });
+        function togglePopup(show) {
+            document.getElementById('popup-overlay').style.display = show ? 'flex' : 'none';
+        }
     </script>
 </body>
 </html>
