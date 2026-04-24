@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Best Friend 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff75c3;
+            --secondary: #9647ff;
+            --glass: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --text: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- LOCK SCREEN --- */
+        #lock-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .lock-card {
+            background: var(--glass);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .lock-card h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #pass-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-align: center;
+            margin-bottom: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .btn-unlock {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 12px 35px;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(231, 60, 126, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-unlock:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(231, 60, 126, 0.6); }
+
+        .shake { animation: shake 0.4s ease-in-out; border-color: #ff4b2b !important; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* --- MAIN LAYOUT --- */
+        #main-content { display: none; opacity: 0; transition: 1s ease; }
+
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(3rem, 10vw, 6rem);
+            margin-bottom: 10px;
+            animation: floatText 3s ease-in-out infinite;
+        }
+
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* --- UPLOAD SECTION --- */
+        .upload-section {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .custom-file-upload {
+            background: var(--glass);
+            border: 2px dashed var(--glass-border);
+            padding: 40px;
+            border-radius: 20px;
+            display: inline-block;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .custom-file-upload:hover { background: rgba(255,255,255,0.2); }
+
+        #photo-input { display: none; }
+
+        /* --- GALLERY --- */
+        .gallery-container {
+            padding: 50px 10%;
+            column-count: 3;
+            column-gap: 25px;
+        }
+
+        @media (max-width: 900px) { .gallery-container { column-count: 2; } }
+        @media (max-width: 600px) { .gallery-container { column-count: 1; } }
+
+        .photo-card {
+            break-inside: avoid;
+            margin-bottom: 25px;
+            background: var(--glass);
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-card:hover { transform: scale(1.03) translateY(-5px); }
+
+        .photo-card img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* --- MESSAGE CARD --- */
+        .message-section { padding: 80px 10%; text-align: center; }
+        .message-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- FLOATING PLAYER --- */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(15px);
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid var(--glass-border);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .player-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .player-btn:hover { color: var(--primary); }
+
+        /* --- LIGHTBOX --- */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+        #lightbox img { max-width: 100%; max-height: 100%; border-radius: 10px; }
+
+        /* --- EXTRAS --- */
+        .heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            animation: heartFloat 5s linear forwards;
+        }
+
+        @keyframes heartFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s ease;
+        }
+
+        .reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="lock-screen">
+        <div class="lock-card">
+            <h2>A Special Space For You 💖</h2>
+            <input type="password" id="pass-input" placeholder="Enter Password...">
+            <br>
+            <button class="btn-unlock" onclick="checkUnlock()">Unlock the Magic</button>
+            <p id="err-msg" style="color: #ffb1b1; margin-top: 10px; font-size: 0.8rem; display: none;">Wrong password, try again! ✨</p>
+        </div>
+    </div>
+
+    <div id="main-content">
+        
+        <div id="particles-container"></div>
+
+        <section class="hero">
+            <h1 data-reveal>For My Best Friend ✨</h1>
+            <p data-reveal style="opacity: 0.9; font-weight: 300;">Memories made beautiful because of you.</p>
+        </section>
+
+        <section class="upload-section" data-reveal>
+            <label for="photo-input" class="custom-file-upload">
+                <span style="font-size: 2rem;">📸</span><br>
+                <strong>Click to Upload Photos</strong><br>
+                <span style="font-size: 0.8rem; opacity: 0.7;">Select multiple memories from your PC</span>
+            </label>
+            <input type="file" id="photo-input" multiple accept="image/*">
+        </section>
+
+        <div class="gallery-container" id="gallery">
+            </div>
+
+        <section class="message-section">
+            <div class="message-card" data-reveal>
+                <h2 style="font-family: 'Dancing Script'; font-size: 2.5rem; margin-bottom: 15px;">To My Bestie</h2>
+                <p>Thank you for being special in my life 💜. Every moment captured here represents a piece of our story that I'll cherish forever.</p>
+            </div>
+        </section>
+
+        <div class="music-player">
+            <button class="player-btn" id="play-btn" onclick="toggleMusic()">▶</button>
+            <span id="track-name" style="font-size: 0.8rem; font-weight: 600;">Our Special Song 💖</span>
+            <audio id="bg-audio" src="music.mp3" loop></audio>
+        </div>
+
+        <div id="lightbox" onclick="this.style.display='none'">
+            <img src="" id="lightbox-img">
+        </div>
+
+    </div>
+
+    <script>
+        // --- AUTH LOGIC ---
+        function checkUnlock() {
+            const pass = document.getElementById('pass-input').value;
+            const lock = document.getElementById('lock-screen');
+            const main = document.getElementById('main-content');
+            const err = document.getElementById('err-msg');
+            const audio = document.getElementById('bg-audio');
+            const playBtn = document.getElementById('play-btn');
+
+            if(pass === "medamji") {
+                lock.style.opacity = '0';
+                setTimeout(() => {
+                    lock.style.display = 'none';
+                    main.style.display = 'block';
+                    setTimeout(() => { main.style.opacity = '1'; }, 50);
+                    startEffects();
+                    
+                    // Auto-play music upon unlock
+                    audio.play().then(() => {
+                        playBtn.innerText = '⏸';
+                    }).catch(error => {
+                        console.log("Autoplay blocked by browser. User must click Play.");
+                    });
+                }, 800);
+            } else {
+                document.getElementById('pass-input').classList.add('shake');
+                err.style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('pass-input').classList.remove('shake');
+                }, 400);
+            }
+        }
+
+        // --- PHOTO UPLOAD LOGIC ---
+        const photoInput = document.getElementById('photo-input');
+        const gallery = document.getElementById('gallery');
+
+        photoInput.addEventListener('change', function() {
+            const files = Array.from(this.files);
+            
+            files.forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const div = document.createElement('div');
+                        div.className = 'photo-card';
+                        div.innerHTML = `<img src="${e.target.result}" loading="lazy">`;
+                        div.onclick = () => openLightbox(e.target.result);
+                        gallery.appendChild(div);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            lb.style.display = 'flex';
+        }
+
+        // --- EFFECTS (HEARTS & REVEAL) ---
+        function startEffects() {
+            // Heart creation
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = ['💖', '✨', '💜', '🌸'][Math.floor(Math.random() * 4)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }, 600);
+
+            // Scroll reveal
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) entry.target.classList.add('reveal-active');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+        }
+
+        // --- UPDATED MUSIC LOGIC ---
+        const audio = document.getElementById('bg-audio');
+        const playBtn = document.getElementById('play-btn');
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerText = '⏸';
+            } else {
+                audio.pause();
+                playBtn.innerText = '▶';
+            }
+        }
+
+        // Allow Enter key for password
+        document.getElementById('pass-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkUnlock();
+        });
+    </script>
+</body>
+</html>
